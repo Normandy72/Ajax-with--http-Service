@@ -62,3 +62,10 @@ $http({
     $scope.message = response.data;
 });
 ```
+***
+* All categories: 
+`https://coursera-jhu-default-rtdb.firebaseio.com/categories.json`
+* Menu items:
+`https://coursera-jhu-default-rtdb.firebaseio.com/menu_items.json`
+* Menu items category:
+`https://coursera-jhu-default-rtdb.firebaseio.com/menu_items.json?category=B`
