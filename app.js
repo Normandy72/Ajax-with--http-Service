@@ -3,7 +3,8 @@
 
     angular.module('MenuCategoriesApp', [])
     .controller('MenuCategoriesController', MenuCategoriesController)
-    .service('MenuCategoriesService', MenuCategoriesService);
+    .service('MenuCategoriesService', MenuCategoriesService)
+    .constant('ApiBasePath', 'https://coursera-jhu-default-rtdb.firebaseio.com');
 
     MenuCategoriesController.$inject = ['MenuCategoriesService'];
     function MenuCategoriesController(MenuCategoriesService){
@@ -18,16 +19,39 @@
         .catch(function(error){
             console.log('Something went terribly wrong!');
         });
+
+        menu.logMenuItems = function(shortName){
+            var promise = MenuCategoriesService.getMenuForCategory(shortName);
+
+            promise.then(function(response){
+                console.log(response.data);
+            })
+            .catch(function(error){
+                console.log(error);
+            })
+        };
     };
 
-    MenuCategoriesService.$inject = ['$http'];
-    function MenuCategoriesService($http){
+    MenuCategoriesService.$inject = ['$http', 'ApiBasePath'];
+    function MenuCategoriesService($http, ApiBasePath){
         var service = this;
 
         service.getMenuCategories = function(){
             var response = $http({
                 method: "GET",
-                url:('https://coursera-jhu-default-rtdb.firebaseio.com/categories.json')
+                url:(ApiBasePath + '/categories.json')
+            });
+
+            return response;
+        };
+
+        service.getMenuForCategory = function(shortName){
+            var response = $http({
+                method: "GET",
+                url: (ApiBasePath + "/menu_items.json"),
+                params: {
+                    category: shortName
+                }
             });
 
             return response;

@@ -63,6 +63,15 @@ $http({
 });
 ```
 ***
+#### _Summary_
+* `$http` service is based on the promise api exposed to by `$q`.
+* `$http` is itself a function:
+    * Takes a single config object parameter (url only required prop);
+    * Returns a promise to be resolved with `.then` function.
+* `response.data` property holds the server data response.
+    * If JSON, automatically gets transformed into a JS object.
+* `module.constant` can be used an injectable constant
+***
 * All categories: 
 `https://coursera-jhu-default-rtdb.firebaseio.com/categories.json`
 * Menu items:
